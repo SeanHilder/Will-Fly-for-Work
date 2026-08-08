@@ -31,10 +31,11 @@ Main Menu ──▶ World Hub (Pokemon-style walkaround)
 
 ## Integration contracts (define before writing levels)
 
-- **GameManager (A)** — autoload with:
-  - `start_level(level_id: String)` — transitions to the level scene
-  - `level_completed(level_id, score)` — records result, returns to world
-  - `get_level_status(level_id) -> bool` — done or not (B uses this to gate NPCs)
+- **GameManager (A)** — autoload (DONE, see `scripts/utilities/game_manager.gd`):
+  - `start_level(level_id: String)` — fades into the level scene (validates unlock)
+  - `level_completed(level_id: String, score: int)` — records best score, returns to hub
+  - `is_level_unlocked(level_id) -> bool` / `get_level_status(level_id) -> bool` / `get_score(level_id) -> int`
+  - Level registry lives in `LEVELS` in `game_manager.gd` — add your level scene path there
 - **Level interface (A)** — every level scene must expose:
   - `level_id`, `start_shift()`, signal `on_shift_completed(score: int)`
 - **HUD (D)** — reads from the level's signals; never from level internals.

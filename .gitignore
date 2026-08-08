@@ -4,3 +4,6 @@ build*/
 templates/
 
 .vscode/
+
+# Local editor tools (kept on disk, never committed)
+addons/godot_ai/
