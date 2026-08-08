@@ -1,16 +1,24 @@
-[gd_scene load_steps=28 format=3 uid="uid://chee17ae0u5op"]
+[gd_scene format=3 uid="uid://chee17ae0u5op"]
 
 [ext_resource type="Theme" uid="uid://byds11vsd6ber" path="res://themes/pixelart/pixelart.tres" id="1_0bcbq"]
-[ext_resource type="Script" path="res://scripts/ui/main_menu.gd" id="1_7gw0o"]
+[ext_resource type="Script" uid="uid://ruswjj51t1fl" path="res://scripts/ui/main_menu.gd" id="1_7gw0o"]
 [ext_resource type="FontFile" uid="uid://07yvi11ui7vg" path="res://fonts/Peaberry/PeaberryMono.ttf" id="1_i2dk5"]
 [ext_resource type="StyleBox" uid="uid://b6h4sqok6xlxy" path="res://themes/pixelart/button_normal_style.tres" id="2_40phc"]
 [ext_resource type="PackedScene" uid="uid://tqr8mcs2r0kr" path="res://scenes/samples/platformer_sample.tscn" id="2_gqgdn"]
 [ext_resource type="PackedScene" path="res://scenes/scene_transitions/circle_transition.tscn" id="3_lqaap"]
 [ext_resource type="StyleBox" uid="uid://dj0ib6qvmygdj" path="res://themes/pixelart/button_pressed_style.tres" id="3_u8ajb"]
 [ext_resource type="Texture2D" uid="uid://c8yfrjpm5qqjt" path="res://sprites/ui/ui-tileset.png" id="4_05n6c"]
-[ext_resource type="Script" path="res://scripts/ui/audio_menu.gd" id="4_mjs4o"]
-[ext_resource type="Script" path="res://scripts/ui/viewport_container.gd" id="6_8dq4u"]
+[ext_resource type="Script" uid="uid://ckylu6mnfy015" path="res://scripts/ui/audio_menu.gd" id="4_mjs4o"]
+[ext_resource type="Script" uid="uid://bvuu428k485ki" path="res://scripts/ui/viewport_container.gd" id="6_8dq4u"]
+[ext_resource type="Shader" uid="uid://dc0i7n2fv2ffs" path="res://shaders/starfield.gdshader" id="6_qhip2"]
+[ext_resource type="Shader" uid="uid://ot2xepe88wau" path="res://shaders/planet_ringed.gdshader" id="7_r7lwt"]
+[ext_resource type="Shader" uid="uid://bfv75tmb7vqtp" path="res://shaders/planet_earth.gdshader" id="8_r7lwt"]
 [ext_resource type="PackedScene" path="res://scenes/common/ui/load_button.tscn" id="9_ijoqn"]
+[ext_resource type="Shader" uid="uid://b0c2f40dpo23d" path="res://shaders/ship.gdshader" id="9_y0j1a"]
+[ext_resource type="Theme" uid="uid://74n6wq72uo7j" path="res://themes/space/space_buttons.tres" id="14_rnnpp"]
+[ext_resource type="StyleBox" uid="uid://c82qovdiyp3vk" path="res://themes/space/slider_track.tres" id="17_w0ufx"]
+[ext_resource type="StyleBox" uid="uid://dd7fk6ur3djjw" path="res://themes/space/slider_fill.tres" id="18_i21s4"]
+[ext_resource type="StyleBox" uid="uid://bekp0xwpltx4b" path="res://themes/space/slider_fill_highlight.tres" id="19_qftwh"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ve7hb"]
 
@@ -48,6 +56,79 @@ Label/font_sizes/font_size = 16
 Label/fonts/font = ExtResource("1_i2dk5")
 Label/styles/normal = SubResource("StyleBoxEmpty_n3wa8")
 Panel/styles/panel = SubResource("StyleBoxTexture_rbmb2")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gpx6g"]
+shader = ExtResource("6_qhip2")
+shader_parameter/top_color = Color(0.01, 0.01, 0.06, 1)
+shader_parameter/bottom_color = Color(0.09, 0.03, 0.18, 1)
+shader_parameter/aspect = 1.777
+shader_parameter/star_density = 40.0
+shader_parameter/star_size = 0.3
+shader_parameter/star_falloff = 6.0
+shader_parameter/twinkle_speed = 1.5
+shader_parameter/drift_speed = 0.005
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_y0j1a"]
+shader = ExtResource("7_r7lwt")
+shader_parameter/ocean_deep = Color(0.18, 0.05, 0.26, 1)
+shader_parameter/ocean_shallow = Color(0.42, 0.14, 0.5, 1)
+shader_parameter/land_low = Color(0.15, 0.42, 0.38, 1)
+shader_parameter/land_high = Color(0.62, 0.75, 0.3, 1)
+shader_parameter/ice_color = Color(0.85, 0.95, 0.92, 1)
+shader_parameter/cloud_color = Color(0.95, 0.85, 1, 1)
+shader_parameter/night_color = Color(0.03, 0.01, 0.06, 1)
+shader_parameter/atmo_color = Color(0.75, 0.4, 1, 1)
+shader_parameter/ring_color = Color(0.85, 0.72, 0.95, 1)
+shader_parameter/light_dir = Vector2(-0.6, -0.5)
+shader_parameter/planet_scale = 0.42
+shader_parameter/noise_scale = 4.5
+shader_parameter/sea_level = 0.52
+shader_parameter/ice_extent = 0.82
+shader_parameter/cloud_amount = 0.35
+shader_parameter/cloud_opacity = 0.6
+shader_parameter/spin_speed = 0.0400000019
+shader_parameter/cloud_spin_speed = 0.03
+shader_parameter/atmo_strength = 0.9
+shader_parameter/ring_inner = 1.35
+shader_parameter/ring_outer = 2.15
+shader_parameter/ring_tilt = 0.26
+shader_parameter/ring_lean = 0.22
+shader_parameter/ring_opacity = 0.85
+shader_parameter/ring_detail = 26.0
+shader_parameter/shadow_strength = 0.55
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rnnpp"]
+shader = ExtResource("8_r7lwt")
+shader_parameter/ocean_deep = Color(0.02, 0.09, 0.28, 1)
+shader_parameter/ocean_shallow = Color(0.06, 0.32, 0.56, 1)
+shader_parameter/land_low = Color(0.13, 0.34, 0.16, 1)
+shader_parameter/land_high = Color(0.45, 0.39, 0.22, 1)
+shader_parameter/ice_color = Color(0.92, 0.96, 1, 1)
+shader_parameter/cloud_color = Color(1, 1, 1, 1)
+shader_parameter/night_color = Color(0.02, 0.02, 0.07, 1)
+shader_parameter/atmo_color = Color(0.35, 0.65, 1, 1)
+shader_parameter/light_dir = Vector2(-0.6, -0.5)
+shader_parameter/noise_scale = 4.0
+shader_parameter/sea_level = 0.54
+shader_parameter/ice_extent = 0.8
+shader_parameter/cloud_amount = 0.45
+shader_parameter/cloud_opacity = 0.7
+shader_parameter/spin_speed = 0.0400000019
+shader_parameter/cloud_spin_speed = 0.03
+shader_parameter/atmo_strength = 0.9
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_foq04"]
+shader = ExtResource("9_y0j1a")
+shader_parameter/hull_white = Color(0.9, 0.91, 0.94, 1)
+shader_parameter/hull_light = Color(0.55, 0.6, 0.75, 1)
+shader_parameter/hull_grey = Color(0.55, 0.57, 0.62, 1)
+shader_parameter/hull_black = Color(0.06, 0.06, 0.09, 1)
+shader_parameter/flame_core = Color(1, 0.98, 0.82, 1)
+shader_parameter/flame_mid = Color(1, 0.72, 0.18, 1)
+shader_parameter/flame_edge = Color(0.93, 0.34, 0.05, 1)
+shader_parameter/pixels = 64.0
+shader_parameter/flicker_speed = 14.0
+shader_parameter/plume_length = 0.34
 
 [sub_resource type="LabelSettings" id="LabelSettings_utnyj"]
 font_size = 100
@@ -138,9 +219,9 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_xq8ga"]
 _data = {
-"RESET": SubResource("Animation_ro8gj"),
-"main_menu": SubResource("Animation_u1ere"),
-"settings_menu": SubResource("Animation_ns3jf")
+&"RESET": SubResource("Animation_ro8gj"),
+&"main_menu": SubResource("Animation_u1ere"),
+&"settings_menu": SubResource("Animation_ns3jf")
 }
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_h0fc5"]
@@ -153,12 +234,12 @@ animation = &"settings_menu"
 advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_huiay"]
-xfade_time = 1.0
+xfade_time = 0.35
 advance_mode = 2
 advance_expression = "self.current_menu == Menu.SETTINGS_MENU"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_b8jnv"]
-xfade_time = 1.0
+xfade_time = 0.35
 advance_mode = 2
 advance_expression = "current_menu == Menu.MAIN_MENU"
 
@@ -172,7 +253,7 @@ states/settings_menu/position = Vector2(685, 179)
 transitions = ["Start", "main_menu", SubResource("AnimationNodeStateMachineTransition_ckc0g"), "main_menu", "settings_menu", SubResource("AnimationNodeStateMachineTransition_huiay"), "settings_menu", "main_menu", SubResource("AnimationNodeStateMachineTransition_b8jnv")]
 graph_offset = Vector2(-12, 98)
 
-[node name="menu" type="Control"]
+[node name="menu" type="Control" unique_id=1285536347]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -183,7 +264,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = SubResource("Theme_un6xn")
 
-[node name="Panel" type="Panel" parent="."]
+[node name="Panel" type="Panel" parent="." unique_id=1811472012]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -192,7 +273,46 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_0bcbq")
 
-[node name="Main Menu" type="AspectRatioContainer" parent="."]
+[node name="Starfield" type="ColorRect" parent="." unique_id=1742330214]
+material = SubResource("ShaderMaterial_gpx6g")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="PlanetFar" type="ColorRect" parent="." unique_id=2026505123]
+material = SubResource("ShaderMaterial_y0j1a")
+layout_mode = 1
+offset_left = 150.0
+offset_top = 90.0
+offset_right = 240.0
+offset_bottom = 180.0
+offset_transform_position = Vector2(150, 90)
+mouse_filter = 2
+
+[node name="PlanetMid" type="ColorRect" parent="." unique_id=943574791]
+material = SubResource("ShaderMaterial_rnnpp")
+layout_mode = 1
+offset_left = 930.0
+offset_top = 95.0
+offset_right = 1090.0
+offset_bottom = 255.0
+offset_transform_position = Vector2(150, 90)
+mouse_filter = 2
+
+[node name="Ship" type="ColorRect" parent="." unique_id=69601153]
+material = SubResource("ShaderMaterial_foq04")
+layout_mode = 1
+offset_left = 426.0
+offset_top = 380.0
+offset_right = 726.0
+offset_bottom = 680.0
+mouse_filter = 2
+
+[node name="Main Menu" type="AspectRatioContainer" parent="." unique_id=1406110521]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -201,7 +321,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("6_8dq4u")
 
-[node name="Menu Control" type="Control" parent="Main Menu" node_paths=PackedStringArray("start_button", "settings_button", "exit_button")]
+[node name="Menu Control" type="Control" parent="Main Menu" unique_id=988869081 node_paths=PackedStringArray("start_button", "settings_button", "exit_button")]
 layout_mode = 2
 script = ExtResource("1_7gw0o")
 start_button = NodePath("../MarginContainer/VBoxContainer/start_button")
@@ -210,149 +330,163 @@ exit_button = NodePath("../MarginContainer/VBoxContainer/exit_button")
 start_scene_path = ExtResource("2_gqgdn")
 transition_path = ExtResource("3_lqaap")
 
-[node name="MarginContainer" type="MarginContainer" parent="Main Menu"]
+[node name="MarginContainer" type="MarginContainer" parent="Main Menu" unique_id=573523297]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Main Menu/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Main Menu/MarginContainer" unique_id=1710159831]
 layout_mode = 2
+theme = ExtResource("14_rnnpp")
+theme_override_constants/separation = 12
 alignment = 1
 
-[node name="title" type="Label" parent="Main Menu/MarginContainer/VBoxContainer"]
+[node name="title" type="Label" parent="Main Menu/MarginContainer/VBoxContainer" unique_id=872696505]
 layout_mode = 2
-text = "Title"
+text = "WillFlyForWork"
 label_settings = SubResource("LabelSettings_utnyj")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="start_button" type="Button" parent="Main Menu/MarginContainer/VBoxContainer"]
+[node name="start_button" type="Button" parent="Main Menu/MarginContainer/VBoxContainer" unique_id=1525886972]
+custom_minimum_size = Vector2(340, 0)
 layout_mode = 2
+size_flags_horizontal = 4
 text = "Start"
 
-[node name="load_button" parent="Main Menu/MarginContainer/VBoxContainer" instance=ExtResource("9_ijoqn")]
+[node name="load_button" parent="Main Menu/MarginContainer/VBoxContainer" unique_id=1637094234 instance=ExtResource("9_ijoqn")]
+custom_minimum_size = Vector2(340, 0)
 layout_mode = 2
+size_flags_horizontal = 4
 size_flags_vertical = 1
 text = "Continue"
 
-[node name="settings_button" type="Button" parent="Main Menu/MarginContainer/VBoxContainer"]
+[node name="settings_button" type="Button" parent="Main Menu/MarginContainer/VBoxContainer" unique_id=593773088]
+custom_minimum_size = Vector2(340, 0)
 layout_mode = 2
+size_flags_horizontal = 4
 text = "Settings"
 
-[node name="exit_button" type="Button" parent="Main Menu/MarginContainer/VBoxContainer"]
+[node name="exit_button" type="Button" parent="Main Menu/MarginContainer/VBoxContainer" unique_id=475894480]
+custom_minimum_size = Vector2(340, 0)
 layout_mode = 2
+size_flags_horizontal = 4
 text = "Exit"
 
-[node name="Settings Menu" type="AspectRatioContainer" parent="."]
+[node name="Settings Menu" type="AspectRatioContainer" parent="." unique_id=1439535936]
 layout_mode = 0
 offset_left = 1152.0
 offset_right = 2304.0
 offset_bottom = 648.0
 script = ExtResource("6_8dq4u")
 
-[node name="Audio Control" type="Control" parent="Settings Menu" node_paths=PackedStringArray("master_slider", "music_slider", "sfx_slider")]
+[node name="Audio Control" type="Control" parent="Settings Menu" unique_id=477359283 node_paths=PackedStringArray("master_slider", "music_slider", "sfx_slider")]
 layout_mode = 2
 script = ExtResource("4_mjs4o")
 master_slider = NodePath("../MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HSlider")
 music_slider = NodePath("../MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HSlider2")
 sfx_slider = NodePath("../MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/HSlider3")
 
-[node name="MarginContainer" type="MarginContainer" parent="Settings Menu"]
+[node name="MarginContainer" type="MarginContainer" parent="Settings Menu" unique_id=1757158824]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Settings Menu/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Settings Menu/MarginContainer" unique_id=792422375]
 layout_mode = 2
+theme = ExtResource("14_rnnpp")
 alignment = 1
 
-[node name="Label" type="Label" parent="Settings Menu/MarginContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="Settings Menu/MarginContainer/VBoxContainer" unique_id=1497646559]
 layout_mode = 2
 text = "Settings"
 label_settings = SubResource("LabelSettings_0qyyl")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Settings Menu/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Settings Menu/MarginContainer/VBoxContainer" unique_id=431714229]
 layout_mode = 2
+theme_override_constants/separation = 20
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Settings Menu/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Settings Menu/MarginContainer/VBoxContainer/HBoxContainer" unique_id=2144729560]
 layout_mode = 2
+theme_override_constants/separation = 14
+alignment = 1
 
-[node name="Label" type="Label" parent="Settings Menu/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="Settings Menu/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1171927385]
+custom_minimum_size = Vector2(100, 16)
 layout_mode = 2
 theme = ExtResource("1_0bcbq")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "Master"
+horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="Label2" type="Label" parent="Settings Menu/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="Label2" type="Label" parent="Settings Menu/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1368545773]
+custom_minimum_size = Vector2(100, 16)
 layout_mode = 2
 theme = ExtResource("1_0bcbq")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-text = "Music
-"
+text = "Music"
+horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="Label3" type="Label" parent="Settings Menu/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="Label3" type="Label" parent="Settings Menu/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=192163310]
+custom_minimum_size = Vector2(100, 16)
 layout_mode = 2
+theme = ExtResource("1_0bcbq")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-text = "SFX
-"
+text = "SFX"
+horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="Settings Menu/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="Settings Menu/MarginContainer/VBoxContainer/HBoxContainer" unique_id=76173301]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_constants/separation = 14
 alignment = 1
 
-[node name="HSlider" type="HSlider" parent="Settings Menu/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+[node name="HSlider" type="HSlider" parent="Settings Menu/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2" unique_id=1005223482]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
 theme = ExtResource("1_0bcbq")
+theme_override_styles/slider = ExtResource("17_w0ufx")
+theme_override_styles/grabber_area = ExtResource("18_i21s4")
+theme_override_styles/grabber_area_highlight = ExtResource("19_qftwh")
 max_value = 1.0
 step = 0.01
 
-[node name="HSlider2" type="HSlider" parent="Settings Menu/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+[node name="HSlider2" type="HSlider" parent="Settings Menu/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2" unique_id=1285992972]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
 theme = ExtResource("1_0bcbq")
+theme_override_styles/slider = ExtResource("17_w0ufx")
+theme_override_styles/grabber_area = ExtResource("18_i21s4")
+theme_override_styles/grabber_area_highlight = ExtResource("19_qftwh")
 max_value = 1.0
 step = 0.01
 
-[node name="HSlider3" type="HSlider" parent="Settings Menu/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+[node name="HSlider3" type="HSlider" parent="Settings Menu/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2" unique_id=1293920279]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
 theme = ExtResource("1_0bcbq")
+theme_override_styles/slider = ExtResource("17_w0ufx")
+theme_override_styles/grabber_area = ExtResource("18_i21s4")
+theme_override_styles/grabber_area_highlight = ExtResource("19_qftwh")
 max_value = 1.0
 step = 0.01
 
-[node name="Button" type="Button" parent="Settings Menu/MarginContainer/VBoxContainer"]
+[node name="Button" type="Button" parent="Settings Menu/MarginContainer/VBoxContainer" unique_id=264336703]
+custom_minimum_size = Vector2(340, 0)
 layout_mode = 2
+size_flags_horizontal = 4
 text = "Return"
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_xq8ga")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=396303874]
+libraries/ = SubResource("AnimationLibrary_xq8ga")
 
-[node name="AnimationTree" type="AnimationTree" parent="."]
+[node name="AnimationTree" type="AnimationTree" parent="." unique_id=646133618]
 tree_root = SubResource("AnimationNodeStateMachine_6w8s2")
 advance_expression_base_node = NodePath("../Main Menu/Menu Control")
 anim_player = NodePath("../AnimationPlayer")
-parameters/current_length = 1.0
-parameters/current_position = 1.0
-parameters/current_delta = 0.0
-parameters/End/current_length = null
-parameters/End/current_position = null
-parameters/End/current_delta = null
-parameters/Start/current_length = 0.0
-parameters/Start/current_position = 0.0
-parameters/Start/current_delta = 0.0
-parameters/main_menu/current_length = 1.0
-parameters/main_menu/current_position = 1.0
-parameters/main_menu/current_delta = 0.0
-parameters/settings_menu/current_length = null
-parameters/settings_menu/current_position = null
-parameters/settings_menu/current_delta = null
 
 [connection signal="pressed" from="Settings Menu/MarginContainer/VBoxContainer/Button" to="Main Menu/Menu Control" method="_on_return_main_menu_button_pressed"]
