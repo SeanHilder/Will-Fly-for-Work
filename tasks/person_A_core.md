@@ -18,29 +18,45 @@
     - `get_score(level_id) -> int`, `get_completed_count() -> int`
     - `reset_progress()` — dev helper
   - **Registry:** add your level to `LEVELS` in `game_manager.gd` (id -> scene path). Scenes load by path, so missing scenes won't break the project.
-- [ ] Level registry: simple `Dictionary` mapping `level_id -> PackedScene` (+ world hub scene id)
-- [ ] Player scene for the **world hub**: top-down movement, reuses `scripts/movement/top_down_controller.gd` (already has knockback; ignore knockback, use move input)
-  - [ ] Add `Interactor` child (from `scripts/interaction/interactor.gd`) so NPC interaction works out of the box
-  - [ ] Player collision shape + camera following (`camera_area.tscn` optional)
-- [ ] **Level interface contract** — define a `BaseLevel` class (`scripts/gameplay/base_level.gd`):
-  - `@export var level_id: String`
-  - `func start_shift()`
+- [x] Level registry: simple `Dictionary` mapping `level_id -> PackedScene` (+ world hub scene id) — done inside `game_manager.gd` (`LEVELS` + `LEVEL_ORDER`)
+- [x] Player scene for the **world hub**: top-down movement, reuses `scripts/movement/top_down_controller.gd` (already has knockback; ignore knockback, use move input) — `scenes/world_hub/hub_player.tscn`
+  - [x] Add `Interactor` child (from `scripts/interaction/interactor.gd`) so NPC interaction works out of the box
+  - [x] Player collision shape + camera following (`camera_area.tscn` optional) — Camera2D in `world_hub.tscn`
+- [x] **Level interface contract** — `scripts/gameplay/base_level.gd`:
+  - `@export var level_id: String`, `@export var shift_duration := 60.0`
+  - `func start_shift()` — override in the concrete level
   - `signal on_shift_completed(score: int)`
-  - `func end_shift(score)` — emits signal, tells `GameManager`
-- [ ] Grab API for the level: `Grabbable` component (`Area2D`/`RigidBody2D`-based)
-  - `grab()`, `release(velocity)`, signal `on_grabbed` / `on_released`
-  - Velocity/rotation preserved on release (momentum stays — zero-g twist)
-- [ ] Wire main menu → world hub (`start_scene_path` in `scenes/samples/main_menu.tscn`)
-- [ ] Pause menu reachable in hub + level (template `pause_menu.tscn`)
+  - `func end_shift(score)` — emits the signal; does NOT call GameManager (evaluation "Next" button does)
+  - `_ready` warns if `level_id` mismatches `GameManager.current_level_id`
+- [x] Grab API for the level:
+  - **`scripts/gameplay/grabbable.gd`** (`class_name Grabbable extends RigidBody2D`):
+    - `grab(grab_offset := Vector2.ZERO)`, `update_target(pos)`, `release(velocity, angular_velocity)`
+    - `is_held()`, signals `on_grabbed` / `on_released`
+    - Held = frozen physics + smooth cursor follow; release restores momentum (zero-g twist)
+    - Scene setup: collision layer 5 ("Dynamic Object"), `PhysicsMaterial` friction 0
+  - **`scripts/gameplay/grab_controller.gd`** (`class_name GrabController extends Node`):
+    - Left-click (`shoot` action) physics-picks layer-5 grabbables under cursor
+    - Tracks cursor history; release passes avg velocity + spin (arcs become rotation)
+    - `try_grab_at(world_pos)`, `release_held()`, `held` property
+- [x] Wire main menu → world hub (`start_scene_path` in `scenes/samples/main_menu.tscn`)
+- [x] Pause menu reachable in hub (`pause_menu.tscn` instanced in `world_hub.tscn`; levels get it via D's HUD)
+- [x] Placeholder level for testing: `scenes/levels/level_1.tscn` + `scripts/gameplay/placeholder_level.gd`
+  - Full loop: `start_level("level_1")` → briefing delay → shift timer → `end_shift(42)` → auto `level_completed` → back to hub
+  - Person C replaces the scene content; keep the `level_1` id + BaseLevel contract
 
 ## Hand off to others
 
 - Tell B: `GameManager.start_level("level_1")` signature + level ids
 - Tell C: `BaseLevel` API + `Grabbable` usage example scene
+  - Level root script extends `BaseLevel`, sets `level_id = "level_1"`
+  - Player grabs objects via the scene's `GrabController` (left-click drag)
+  - Creatures/items that can be picked up are `RigidBody2D` + `grabbable.gd`, collision layer 5
+  - `end_shift(score)` emits `on_shift_completed`; do NOT call `GameManager` directly
 - Tell D: how to reach the score signal and where evaluation screen hooks in
+  - Evaluation screen listens to `on_shift_completed(score)`; its "Next" button calls `GameManager.level_completed(level_id, score)`
 
 ## Done when
 
 - `main_menu.tscn` → world hub works with a fade transition
-- `GameManager.start_level()` can load C's level scene (test with a placeholder scene)
-- `Grabbable` demo scene works with mouse click-drag + release momentum
+- `GameManager.start_level()` loads the placeholder level and returns to the hub after the shift
+- `Grabbable` demo works: click-drag a crate, release with momentum (crate keeps flying)
