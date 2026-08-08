@@ -1,0 +1,58 @@
+# Will Fly for Work — MVP Coordination
+
+**Goal for today:** playable MVP — main menu → walk around world hub → talk to NPC → play Level 1 (Zero-G Vet Clinic) → get evaluated → back to world.
+**Tomorrow (stretch):** add Levels 2–4 at the same NPC/portal slots.
+
+## MVP Flow
+
+```
+Main Menu ──▶ World Hub (Pokemon-style walkaround)
+                  │
+                  ▼ (approach NPC, press interact)
+             Dialogue (HR-Bot briefing, 1 joke, 1 instruction)
+                  │
+                  ▼
+             Level 1: Zero-G Vet Clinic (timed shift)
+                  │
+                  ▼
+             Evaluation screen (HR-Bot review + stars)
+                  │
+                  └──────▶ back to World Hub (level marked done)
+```
+
+## Team & Files
+
+| Person | File | Scope |
+|---|---|---|
+| A | `tasks/person_A_core.md` | Game flow, shared interfaces, player movement + grab API |
+| B | `tasks/person_B_world.md` | World hub map, NPCs, dialogue, interact-to-start-level |
+| C | `tasks/person_C_level1.md` | Level 1 minigame: zero-g physics, creature, grab, timer |
+| D | `tasks/person_D_ui.md` | HUD, HR-Bot evaluation screen, stars, audio, main menu wiring |
+
+## Integration contracts (define before writing levels)
+
+- **GameManager (A)** — autoload with:
+  - `start_level(level_id: String)` — transitions to the level scene
+  - `level_completed(level_id, score)` — records result, returns to world
+  - `get_level_status(level_id) -> bool` — done or not (B uses this to gate NPCs)
+- **Level interface (A)** — every level scene must expose:
+  - `level_id`, `start_shift()`, signal `on_shift_completed(score: int)`
+- **HUD (D)** — reads from the level's signals; never from level internals.
+- **Dialog (B)** — wraps `dialog_box.tscn`; exposes `show_lines(lines: Array, on_finished: Callable)`.
+
+## MVP Definition of Done
+
+- [ ] Launch from main menu → world hub
+- [ ] Player walks around world (top-down, no jumping)
+- [ ] One NPC (HR-Bot or station hand) starts Level 1 via dialogue
+- [ ] Level 1 fully playable: grab patient/tools, treat them, timer ends shift
+- [ ] Evaluation screen shows score + stars + a deadpan bot line
+- [ ] Return to world, level marked complete
+- [ ] World has 1+ extra "coming soon" slot so tomorrow's levels plug in
+- [ ] No errors in Godot output
+
+## Git rules
+
+- One branch per person: `mvp-core`, `mvp-world`, `mvp-level1`, `mvp-ui`
+- Merge to master only when your task list is ticked and the game still runs
+- Don't touch files outside your person's scope without saying so in the PR
