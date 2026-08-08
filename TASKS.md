@@ -41,6 +41,15 @@ Main Menu ──▶ World Hub (Pokemon-style walkaround)
 - **HUD (D)** — reads from the level's signals; never from level internals.
 - **Dialog (B)** — wraps `dialog_box.tscn`; exposes `show_lines(lines: Array, on_finished: Callable)`.
 
+## OPEN DECISION — two level-launching systems
+
+- [ ] **Decide who owns launching levels into the game.** The team currently has TWO parallel systems:
+  - **`GameManager.start_level(level_id)`** (Person A) — fades into a `BaseLevel` scene (hub → level → evaluation → hub flow)
+  - **`MinigameHost.launch(quest_id, minigame_scene)`** + `GameState` + `QuestNPC` (samin1010) — overlays a `Minigame` on a CanvasLayer above the current scene, tracks quest state and saves progress
+- [ ] Agree which one the MVP actually uses for Level 1 (recommend: one becomes the single entry point; the other either wraps it or waits for a later feature)
+- [ ] Update this doc + `tasks/person_A_core.md` / the quest owner's task file once decided
+- [ ] Note: both are registered autoloads and boot fine together — no conflict yet, just ownership ambiguity
+
 ## MVP Definition of Done
 
 - [ ] Launch from main menu → world hub
