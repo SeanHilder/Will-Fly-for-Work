@@ -40,10 +40,6 @@ window/size/mode=3
 window/size/resizable=false
 window/stretch/mode="canvas_items"
 
-[editor_plugins]
-
-enabled=PackedStringArray("res://addons/godot_ai/plugin.cfg")
-
 [input]
 
 ui_cancel={
