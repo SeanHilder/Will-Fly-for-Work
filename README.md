@@ -82,6 +82,10 @@ Appears between every level. Does none of the physical work itself, since it ref
 
 ---
 
+## World Design
+* **Art Style:** flat 2d world walk around like in pokemon.
+* **purpose** walk between minigames on the world
+* 
 ## 🏆 Win Condition & Minimum Viable Scope
 
 ### Win Condition
