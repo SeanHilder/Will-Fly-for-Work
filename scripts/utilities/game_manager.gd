@@ -30,7 +30,10 @@ const TRANSITION_PATH := "res://scenes/scene_transitions/fade_transition.tscn"
 ## scene path. Scenes are loaded by path so missing levels don't break the
 ## editor project file.
 const LEVELS := {
-	"level_1": "res://scenes/levels/level_1.tscn",
+	# TEMP (Person C, mvp-level1 branch): pointed at the real Zero-G Vet
+	# Clinic scene for testing. To revert to A's placeholder stub, change
+	# back to "res://scenes/levels/level_1.tscn".
+	"level_1": "res://scenes/levels/level_1_vet_clinic.tscn",
 	# "level_2": "res://scenes/levels/level_2.tscn",  # add when Person C builds it
 	# "level_3": "res://scenes/levels/level_3.tscn",  # add when Person D builds it
 	# "level_4": "res://scenes/levels/level_4.tscn",  # add when Person D builds it
