@@ -9,7 +9,14 @@ enum Menu { MAIN_MENU, SETTINGS_MENU }
 @export var start_scene_path : PackedScene
 @export var transition_path : PackedScene
 
+## Looping menu music. Cleared automatically when Start is pressed.
+@export var menu_music_path : String = "res://audio/music/menu_theme.mp3"
+
 var current_menu : Menu = Menu.MAIN_MENU
+
+func _ready():
+	if menu_music_path != "" and ResourceLoader.exists(menu_music_path):
+		AudioManager.play_music(menu_music_path)
 
 func _enter_tree():
 	start_button.pressed.connect(_on_start_button_pressed)
