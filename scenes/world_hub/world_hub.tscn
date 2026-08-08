@@ -1,0 +1,256 @@
+[gd_scene load_steps=16 format=3]
+
+[ext_resource type="Texture2D" uid="uid://bi7fkmg3oosb7" path="res://sprites/shapes/square.png" id="1_sq"]
+[ext_resource type="PackedScene" path="res://scenes/world_hub/hub_player.tscn" id="2_plyr"]
+[ext_resource type="Texture2D" uid="uid://bvtsxwnb2ou8v" path="res://sprites/shapes/circle.png" id="3_circ"]
+[ext_resource type="Script" uid="uid://bfinajdpwk0ii" path="res://scripts/interaction/dialog/dialog_interactable.gd" id="4_dlog"]
+[ext_resource type="PackedScene" uid="uid://ds4pyjrrj8npy" path="res://scenes/common/ui/dialog_box.tscn" id="5_dbox"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_npc_body"]
+radius = 20.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_npc_range"]
+radius = 70.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_h"]
+size = Vector2(2180, 60)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_v"]
+size = Vector2(60, 1460)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b300x200"]
+size = Vector2(300, 200)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b200x300"]
+size = Vector2(200, 300)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b350x180"]
+size = Vector2(350, 180)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b200x200"]
+size = Vector2(200, 200)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b250x250"]
+size = Vector2(250, 250)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b300x150"]
+size = Vector2(300, 150)
+
+[node name="WorldHub" type="Node2D"]
+
+[node name="Ground" type="Sprite2D" parent="."]
+modulate = Color(0.788235, 0.8, 0.631373, 1)
+z_index = -10
+scale = Vector2(20.6, 14.6)
+texture = ExtResource("1_sq")
+
+[node name="Roads" type="Node2D" parent="."]
+z_index = -9
+
+[node name="RoadH" type="Sprite2D" parent="Roads"]
+modulate = Color(0.556863, 0.627451, 0.568627, 1)
+scale = Vector2(20.6, 1.4)
+texture = ExtResource("1_sq")
+
+[node name="RoadV" type="Sprite2D" parent="Roads"]
+modulate = Color(0.556863, 0.627451, 0.568627, 1)
+scale = Vector2(1.4, 14.6)
+texture = ExtResource("1_sq")
+
+[node name="Buildings" type="Node2D" parent="."]
+
+[node name="Depot" type="StaticBody2D" parent="Buildings"]
+position = Vector2(-600, -450)
+collision_layer = 8
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Buildings/Depot"]
+modulate = Color(0.792157, 0.627451, 0.352941, 1)
+scale = Vector2(3, 2)
+texture = ExtResource("1_sq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Buildings/Depot"]
+shape = SubResource("RectangleShape2D_b300x200")
+
+[node name="Tower" type="StaticBody2D" parent="Buildings"]
+position = Vector2(-250, -350)
+collision_layer = 8
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Buildings/Tower"]
+modulate = Color(0.682353, 0.415686, 0.278431, 1)
+scale = Vector2(2, 3)
+texture = ExtResource("1_sq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Buildings/Tower"]
+shape = SubResource("RectangleShape2D_b200x300")
+
+[node name="Spaceport" type="StaticBody2D" parent="Buildings"]
+position = Vector2(550, -400)
+collision_layer = 8
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Buildings/Spaceport"]
+modulate = Color(0.545098, 0.25098, 0.286275, 1)
+scale = Vector2(3.5, 1.8)
+texture = ExtResource("1_sq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Buildings/Spaceport"]
+shape = SubResource("RectangleShape2D_b350x180")
+
+[node name="Diner" type="StaticBody2D" parent="Buildings"]
+position = Vector2(250, -250)
+collision_layer = 8
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Buildings/Diner"]
+modulate = Color(0.388235, 0.470588, 0.490196, 1)
+scale = Vector2(2, 2)
+texture = ExtResource("1_sq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Buildings/Diner"]
+shape = SubResource("RectangleShape2D_b200x200")
+
+[node name="HRBotOffice" type="StaticBody2D" parent="Buildings"]
+position = Vector2(-550, 400)
+collision_layer = 8
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Buildings/HRBotOffice"]
+modulate = Color(0.545098, 0.25098, 0.286275, 1)
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("1_sq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Buildings/HRBotOffice"]
+shape = SubResource("RectangleShape2D_b250x250")
+
+[node name="Apartments" type="StaticBody2D" parent="Buildings"]
+position = Vector2(-200, 300)
+collision_layer = 8
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Buildings/Apartments"]
+modulate = Color(0.792157, 0.627451, 0.352941, 1)
+scale = Vector2(2, 2)
+texture = ExtResource("1_sq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Buildings/Apartments"]
+shape = SubResource("RectangleShape2D_b200x200")
+
+[node name="Warehouse" type="StaticBody2D" parent="Buildings"]
+position = Vector2(500, 350)
+collision_layer = 8
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Buildings/Warehouse"]
+modulate = Color(0.682353, 0.415686, 0.278431, 1)
+scale = Vector2(3, 1.5)
+texture = ExtResource("1_sq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Buildings/Warehouse"]
+shape = SubResource("RectangleShape2D_b300x150")
+
+[node name="Clinic" type="StaticBody2D" parent="Buildings"]
+position = Vector2(250, 500)
+collision_layer = 8
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Buildings/Clinic"]
+modulate = Color(0.388235, 0.470588, 0.490196, 1)
+scale = Vector2(2, 3)
+texture = ExtResource("1_sq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Buildings/Clinic"]
+shape = SubResource("RectangleShape2D_b200x300")
+
+[node name="Walls" type="Node2D" parent="."]
+
+[node name="WallTop" type="StaticBody2D" parent="Walls"]
+position = Vector2(0, -760)
+collision_layer = 8
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Walls/WallTop"]
+modulate = Color(0.317647, 0.321569, 0.384314, 1)
+scale = Vector2(21.8, 0.6)
+texture = ExtResource("1_sq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/WallTop"]
+shape = SubResource("RectangleShape2D_wall_h")
+
+[node name="WallBottom" type="StaticBody2D" parent="Walls"]
+position = Vector2(0, 760)
+collision_layer = 8
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Walls/WallBottom"]
+modulate = Color(0.317647, 0.321569, 0.384314, 1)
+scale = Vector2(21.8, 0.6)
+texture = ExtResource("1_sq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/WallBottom"]
+shape = SubResource("RectangleShape2D_wall_h")
+
+[node name="WallLeft" type="StaticBody2D" parent="Walls"]
+position = Vector2(-1060, 0)
+collision_layer = 8
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Walls/WallLeft"]
+modulate = Color(0.317647, 0.321569, 0.384314, 1)
+scale = Vector2(0.6, 14.6)
+texture = ExtResource("1_sq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/WallLeft"]
+shape = SubResource("RectangleShape2D_wall_v")
+
+[node name="WallRight" type="StaticBody2D" parent="Walls"]
+position = Vector2(1060, 0)
+collision_layer = 8
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Walls/WallRight"]
+modulate = Color(0.317647, 0.321569, 0.384314, 1)
+scale = Vector2(0.6, 14.6)
+texture = ExtResource("1_sq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/WallRight"]
+shape = SubResource("RectangleShape2D_wall_v")
+
+[node name="LaidOffWorker" type="StaticBody2D" parent="."]
+position = Vector2(550, -230)
+collision_layer = 8
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="LaidOffWorker"]
+modulate = Color(0.792157, 0.627451, 0.352941, 1)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("3_circ")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LaidOffWorker"]
+shape = SubResource("CircleShape2D_npc_body")
+
+[node name="DialogInteractable" type="Area2D" parent="LaidOffWorker" node_paths=PackedStringArray("dialog_box")]
+collision_layer = 4
+collision_mask = 1
+script = ExtResource("4_dlog")
+dialog_box = NodePath("../../ui/dialog_box")
+dialog_lines = Array[String](["No more jobs."])
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LaidOffWorker/DialogInteractable"]
+shape = SubResource("CircleShape2D_npc_range")
+
+[node name="ui" type="CanvasLayer" parent="."]
+
+[node name="dialog_box" parent="ui" instance=ExtResource("5_dbox")]
+
+[node name="HubPlayer" parent="." instance=ExtResource("2_plyr")]
+position = Vector2(0, 150)
+
+[node name="Camera2D" type="Camera2D" parent="HubPlayer"]
+limit_left = -1090
+limit_top = -790
+limit_right = 1090
+limit_bottom = 790
+position_smoothing_enabled = true
+position_smoothing_speed = 8.0
