@@ -31,6 +31,8 @@ SceneTransitionManager="*res://scenes/preloads/scene_transition_manager.tscn"
 SaveManager="*res://scenes/preloads/save_manager.tscn"
 CameraShakeManager="*res://scenes/preloads/camera_shake_manager.tscn"
 _mcp_game_helper="*res://addons/godot_ai/runtime/game_helper.gd"
+GameState="*res://scripts/globals/game_state.gd"
+MinigameHost="*res://scripts/globals/minigame_host.gd"
 
 [display]
 

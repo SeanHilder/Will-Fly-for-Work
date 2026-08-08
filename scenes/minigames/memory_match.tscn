@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://d0ejabi7xtw0i"]
+
+[ext_resource type="Theme" uid="uid://byds11vsd6ber" path="res://themes/pixelart/pixelart.tres" id="1_hepnt"]
+[ext_resource type="Script" uid="uid://nkojja1oatb0" path="res://scripts/minigames/memory_match.gd" id="1_py3ak"]
+
+[node name="MemoryMatch" type="Control" unique_id=1440550947]
+layout_mode = 3
+anchors_preset = 0
+theme = ExtResource("1_hepnt")
+script = ExtResource("1_py3ak")
+title = "Glyph Calibration"
