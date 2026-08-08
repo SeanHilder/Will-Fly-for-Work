@@ -55,6 +55,10 @@
 - Tell D: how to reach the score signal and where evaluation screen hooks in
   - Evaluation screen listens to `on_shift_completed(score)`; its "Next" button calls `GameManager.level_completed(level_id, score)`
 
+## TODO — open coordination item
+
+- [ ] **Resolve the dual level-launch systems** (see TASKS.md "OPEN DECISION"): `GameManager.start_level` (A's BaseLevel flow) vs `MinigameHost.launch`/`GameState`/`QuestNPC` (teammate's Minigame overlay system). Decide the single entry point for MVP Level 1 and update these docs. Both boot fine together today — ownership is undecided, not broken.
+
 ## Done when
 
 - `main_menu.tscn` → world hub works with a fade transition
