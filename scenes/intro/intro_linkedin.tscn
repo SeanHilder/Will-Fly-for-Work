@@ -1,0 +1,339 @@
+[gd_scene load_steps=9 format=3]
+
+[ext_resource type="Theme" uid="uid://byds11vsd6ber" path="res://themes/pixelart/pixelart.tres" id="1_thm"]
+[ext_resource type="Script" path="res://scripts/ui/intro_linkedin.gd" id="2_scpt"]
+[ext_resource type="Shader" uid="uid://dc0i7n2fv2ffs" path="res://shaders/starfield.gdshader" id="3_star"]
+[ext_resource type="Texture2D" uid="uid://bvtsxwnb2ou8v" path="res://sprites/shapes/circle.png" id="4_circ"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mapstars"]
+shader = ExtResource("3_star")
+shader_parameter/top_color = Color(0.01, 0.01, 0.06, 1)
+shader_parameter/bottom_color = Color(0.09, 0.03, 0.18, 1)
+shader_parameter/aspect = 1.66
+shader_parameter/star_density = 40.0
+shader_parameter/star_size = 0.3
+shader_parameter/star_falloff = 6.0
+shader_parameter/twinkle_speed = 1.5
+shader_parameter/drift_speed = 0.005
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bezel"]
+bg_color = Color(0.09, 0.09, 0.11, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_screen"]
+bg_color = Color(0.93, 0.94, 0.96, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_header"]
+bg_color = Color(0.16, 0.35, 0.55, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+
+[node name="IntroLinkedin" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("1_thm")
+script = ExtResource("2_scpt")
+
+[node name="Backdrop" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.05, 0.05, 0.07, 1)
+
+[node name="Bezel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 120.0
+offset_top = 36.0
+offset_right = -120.0
+offset_bottom = -36.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_bezel")
+
+[node name="Screen" type="Panel" parent="Bezel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 18.0
+offset_top = 18.0
+offset_right = -18.0
+offset_bottom = -30.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_screen")
+
+[node name="Header" type="Panel" parent="Bezel/Screen"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 54.0
+grow_horizontal = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_header")
+
+[node name="SiteName" type="Label" parent="Bezel/Screen/Header"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 18.0
+offset_top = -17.0
+offset_bottom = 17.0
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 28
+text = "WorkedIn"
+
+[node name="Tagline" type="Label" parent="Bezel/Screen/Header"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -420.0
+offset_top = -9.0
+offset_right = -18.0
+offset_bottom = 9.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.75, 0.82, 0.9, 1)
+theme_override_font_sizes/font_size = 13
+text = "Optimizing humans out of the loop since 2041"
+horizontal_alignment = 2
+
+[node name="ProfileLine" type="Label" parent="Bezel/Screen"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 18.0
+offset_top = 62.0
+offset_right = -18.0
+offset_bottom = 84.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.35, 0.38, 0.44, 1)
+theme_override_font_sizes/font_size = 14
+text = "You — Human. Skills: hands, improvisation, showing up anyway."
+
+[node name="StatusLabel" type="Label" parent="Bezel/Screen"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -14.0
+offset_right = 300.0
+offset_bottom = 14.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.55, 0.58, 0.63, 1)
+theme_override_font_sizes/font_size = 18
+text = "Refreshing job feed..."
+horizontal_alignment = 1
+
+[node name="Feed" type="VBoxContainer" parent="Bezel/Screen"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_left = 0.5
+anchor_top = 0.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -280.0
+offset_top = 96.0
+offset_right = 280.0
+offset_bottom = -76.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/separation = 8
+
+[node name="ApplyButton" type="Button" parent="Bezel/Screen"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -110.0
+offset_top = -62.0
+offset_right = 110.0
+offset_bottom = -14.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 24
+text = "APPLY"
+
+[node name="MapView" type="Control" parent="Bezel/Screen"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="MapBG" type="ColorRect" parent="Bezel/Screen/MapView"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+material = SubResource("ShaderMaterial_mapstars")
+
+[node name="MapHeader" type="Label" parent="Bezel/Screen/MapView"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 16.0
+offset_top = 10.0
+offset_right = -16.0
+offset_bottom = 32.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.75, 0.82, 0.9, 1)
+theme_override_font_sizes/font_size = 14
+text = "GalaxyMaps — your commute, visualized"
+
+[node name="RouteLine" type="Line2D" parent="Bezel/Screen/MapView"]
+points = PackedVector2Array(130, 430, 740, 100)
+width = 2.0
+default_color = Color(0.55, 0.6, 0.7, 0.45)
+
+[node name="EarthDot" type="TextureRect" parent="Bezel/Screen/MapView"]
+modulate = Color(0.35, 0.65, 1, 1)
+layout_mode = 0
+offset_left = 120.0
+offset_top = 420.0
+offset_right = 140.0
+offset_bottom = 440.0
+mouse_filter = 2
+texture = ExtResource("4_circ")
+expand_mode = 1
+
+[node name="EarthLabel" type="Label" parent="Bezel/Screen/MapView"]
+layout_mode = 0
+offset_left = 60.0
+offset_top = 446.0
+offset_right = 260.0
+offset_bottom = 464.0
+theme_override_colors/font_color = Color(0.9, 0.93, 0.97, 1)
+theme_override_font_sizes/font_size = 12
+text = "EARTH — you are here"
+
+[node name="AtaraxiaDot" type="TextureRect" parent="Bezel/Screen/MapView"]
+modulate = Color(0.98, 0.75, 0.3, 1)
+layout_mode = 0
+offset_left = 730.0
+offset_top = 90.0
+offset_right = 750.0
+offset_bottom = 110.0
+mouse_filter = 2
+texture = ExtResource("4_circ")
+expand_mode = 1
+
+[node name="AtaraxiaLabel" type="Label" parent="Bezel/Screen/MapView"]
+layout_mode = 0
+offset_left = 620.0
+offset_top = 116.0
+offset_right = 850.0
+offset_bottom = 134.0
+theme_override_colors/font_color = Color(0.98, 0.85, 0.55, 1)
+theme_override_font_sizes/font_size = 12
+text = "ATARAXIA — the job"
+
+[node name="DistanceLabel" type="Label" parent="Bezel/Screen/MapView"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -320.0
+offset_top = -40.0
+offset_right = 320.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 32
+text = "4,242 LIGHT-YEARS"
+horizontal_alignment = 1
+
+[node name="DistanceSubLabel" type="Label" parent="Bezel/Screen/MapView"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -320.0
+offset_top = 6.0
+offset_right = 320.0
+offset_bottom = 26.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.65, 0.7, 0.78, 1)
+theme_override_font_sizes/font_size = 13
+text = "Estimated arrival: eventually. Route includes several working layovers."
+horizontal_alignment = 1
+
+[node name="MapBackButton" type="Button" parent="Bezel/Screen/MapView"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = -56.0
+offset_right = 140.0
+offset_bottom = -16.0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 16
+text = "< BACK"
+
+[node name="SkipHint" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -280.0
+offset_top = -30.0
+offset_right = -12.0
+offset_bottom = -8.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.45, 0.45, 0.5, 1)
+theme_override_font_sizes/font_size = 12
+text = "click anywhere to skip"
+horizontal_alignment = 2
