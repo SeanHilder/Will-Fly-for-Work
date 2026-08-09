@@ -49,6 +49,8 @@ func _on_minigame_finished(won: bool) -> void:
 
 	get_tree().paused = false
 	if is_instance_valid(_current):
+		if _current.music_path != "":
+			AudioManager.pop_music()
 		_current.queue_free()
 	_current = null
 	_current_id = &""

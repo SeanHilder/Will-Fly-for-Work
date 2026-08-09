@@ -11,6 +11,9 @@ signal finished(won: bool)
 ## Shown in the minigame's own header.
 @export var title: String = "Minigame"
 
+## Track played while this minigame is up. The previous track resumes on exit.
+@export var music_path: String = "res://audio/music/minigame_theme.mp3"
+
 var _is_over := false
 
 
@@ -24,6 +27,8 @@ func _ready() -> void:
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	_match_viewport()
 	get_viewport().size_changed.connect(_match_viewport)
+	if music_path != "" and ResourceLoader.exists(music_path):
+		AudioManager.push_music(music_path)
 	_build()
 	start()
 
