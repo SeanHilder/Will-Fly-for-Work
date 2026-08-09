@@ -1,0 +1,16 @@
+[gd_resource type="TileSet" format=3 uid="uid://dauuusqpvaruk"]
+
+[ext_resource type="Texture2D" path="res://sprites/tilesets/kenney_modern_city/tilemap_packed.png" id="1_tex"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_city"]
+texture = ExtResource("1_tex")
+5:1/0 = 0
+5:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+9:1/0 = 0
+9:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+13:1/0 = 0
+13:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+
+[resource]
+physics_layer_0/collision_layer = 8
+sources/0 = SubResource("TileSetAtlasSource_city")
