@@ -2,7 +2,7 @@ extends Control
 
 ## Robot Recalibration Exam — Cinderon-3's job, a standalone scene.
 ## The maintenance robots got sun-scrambled; re-teach them computer science.
-## 3 questions drawn at random from a pool of 10, answers shuffled.
+## 3 questions drawn at random from a pool of 30, answers shuffled.
 ## All 3 right -> asteroid blaster. One wrong -> recalibration failed, retry
 ## (with a fresh draw, so memorizing one run doesn't trivialize the next).
 
@@ -53,6 +53,86 @@ const POOL := [
 		"q": "Inserting at the HEAD of a singly linked list costs?",
 		"a": ["O(1)", "O(n)", "O(log n)", "O(n^2)"],
 	},
+	{
+		"q": "What is the worst-case time complexity of merge sort?",
+		"a": ["O(n log n)", "O(n^2)", "O(n)", "O(log n)"],
+	},
+	{
+		"q": "Which of these sorting algorithms is stable?",
+		"a": ["Merge sort", "Quicksort", "Heapsort", "Selection sort"],
+	},
+	{
+		"q": "Breadth-first search (BFS) uses which data structure?",
+		"a": ["Queue", "Stack", "Heap", "Binary search tree"],
+	},
+	{
+		"q": "Depth-first search (DFS) uses which data structure?",
+		"a": ["Stack", "Queue", "Hash map", "Priority queue"],
+	},
+	{
+		"q": "In a MIN-heap, which element is at the root?",
+		"a": ["The smallest", "The largest", "The median", "A random one"],
+	},
+	{
+		"q": "Accessing an array element by index costs?",
+		"a": ["O(1)", "O(n)", "O(log n)", "O(n log n)"],
+	},
+	{
+		"q": "Searching an UNSORTED array for a value costs?",
+		"a": ["O(n)", "O(1)", "O(log n)", "O(n^2)"],
+	},
+	{
+		"q": "Which data structure best implements UNDO?",
+		"a": ["Stack", "Queue", "Set", "Graph"],
+	},
+	{
+		"q": "A common way to handle hash collisions is?",
+		"a": ["Chaining", "Compression", "Sorting the keys", "Encrypting the keys"],
+	},
+	{
+		"q": "Binary search requires the input to be?",
+		"a": ["Sorted", "Unique", "Numeric", "Short"],
+	},
+	{
+		"q": "Which of these is NOT a comparison-based sort?",
+		"a": ["Counting sort", "Merge sort", "Quicksort", "Insertion sort"],
+	},
+	{
+		"q": "Average-case insertion into a hash map costs?",
+		"a": ["O(1)", "O(n)", "O(log n)", "O(n log n)"],
+	},
+	{
+		"q": "Two nested loops, each over n items, cost?",
+		"a": ["O(n^2)", "O(2n)", "O(n log n)", "O(n)"],
+	},
+	{
+		"q": "Which traversal of a binary search tree visits values in sorted order?",
+		"a": ["In-order", "Pre-order", "Post-order", "Level-order"],
+	},
+	{
+		"q": "A priority queue is most commonly implemented with a?",
+		"a": ["Heap", "Stack", "Linked list", "Trie"],
+	},
+	{
+		"q": "What is the WORST-case time complexity of quicksort?",
+		"a": ["O(n^2)", "O(n log n)", "O(n)", "O(log n)"],
+	},
+	{
+		"q": "Big-O notation describes?",
+		"a": ["An upper bound on growth rate", "Exact running time in seconds", "Memory address layout", "Compiler optimization level"],
+	},
+	{
+		"q": "Naive recursive Fibonacci (no memoization) runs in?",
+		"a": ["O(2^n)", "O(n)", "O(n^2)", "O(log n)"],
+	},
+	{
+		"q": "Which shortest-path algorithm handles NEGATIVE edge weights?",
+		"a": ["Bellman-Ford", "Dijkstra's", "Binary search", "Bubble sort"],
+	},
+	{
+		"q": "A trie is a data structure specialized for?",
+		"a": ["String prefix lookups", "Sorting integers", "Matrix math", "Random sampling"],
+	},
 ]
 
 const ROBOT_TEX := preload("res://sprites/characters/hover_bot.png")
@@ -65,6 +145,10 @@ var _progress: Label
 var _question: Label
 var _feedback: Label
 var _answer_buttons: Array[Button] = []
+var _correct_button: Button = null
+
+const COLOR_RIGHT := Color(0.55, 1.0, 0.6)
+const COLOR_WRONG := Color(1.0, 0.42, 0.42)
 
 
 func _ready() -> void:
@@ -159,17 +243,29 @@ func _show_question() -> void:
 		var answer_index: int = order[i]
 		b.text = entry.a[answer_index]
 		b.disabled = false
+		b.modulate = Color.WHITE
 		for conn in b.pressed.get_connections():
 			b.pressed.disconnect(conn.callable)
-		b.pressed.connect(_on_answer.bind(answer_index == 0))
+		b.pressed.connect(_on_answer.bind(answer_index == 0, b))
+		if answer_index == 0:
+			_correct_button = b
 
 
-func _on_answer(correct: bool) -> void:
+func _on_answer(correct: bool, button: Button) -> void:
 	if not _answering:
 		return
 	_answering = false
 	for b in _answer_buttons:
 		b.disabled = true
+
+	# Reveal: your pick colored, and on a miss the right answer glows green
+	# so a failed exam still teaches something.
+	if correct:
+		button.modulate = COLOR_RIGHT
+	else:
+		button.modulate = COLOR_WRONG
+		if _correct_button:
+			_correct_button.modulate = COLOR_RIGHT
 
 	if correct:
 		_index += 1
@@ -199,8 +295,8 @@ func _win() -> void:
 func _fail() -> void:
 	_progress.text = "RECALIBRATION FAILED"
 	_question.text = "The robot now believes bubble sort is a lifestyle."
-	_feedback.text = "VOLT insists you try again. New questions. Immediately."
-	get_tree().create_timer(1.8).timeout.connect(func() -> void:
+	_feedback.text = "The green one. It was the green one. VOLT insists you try again — new questions."
+	get_tree().create_timer(3.0).timeout.connect(func() -> void:
 		SceneTransitionManager.change_scene_with_transition(
 			load(SELF_SCENE),
 			load(GameManager.TRANSITION_PATH)
