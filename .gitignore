@@ -1,7 +1,8 @@
 # Godot 4+ specific ignores
 .godot/
-build*/
-templates/
+# Root-only: a bare "build*/" would also swallow sprites/buildings/
+/build*/
+/templates/
 
 .vscode/
 
