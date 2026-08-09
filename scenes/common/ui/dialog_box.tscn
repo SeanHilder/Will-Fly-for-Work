@@ -85,7 +85,7 @@ _data = {
 "on": SubResource("Animation_t65mo")
 }
 
-[node name="dialog_box" type="Control" node_paths=PackedStringArray("text")]
+[node name="dialog_box" type="Control" node_paths=PackedStringArray("text", "name_label")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -97,6 +97,7 @@ theme = ExtResource("1_j5voe")
 script = ExtResource("2_4j5tl")
 is_on = true
 text = NodePath("Panel/Label")
+name_label = NodePath("Panel/NameTag/NameLabel")
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1
@@ -115,13 +116,32 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 24.0
+offset_top = 12.0
+offset_right = -24.0
+offset_bottom = -12.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "Hey, I am some text yo"
 horizontal_alignment = 1
 vertical_alignment = 1
+autowrap_mode = 3
 visible_characters = 0
 visible_ratio = 0.0
+
+[node name="NameTag" type="PanelContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 0
+offset_left = 24.0
+offset_top = -30.0
+offset_right = 24.0
+offset_bottom = -30.0
+grow_horizontal = 1
+
+[node name="NameLabel" type="Label" parent="Panel/NameTag"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "???"
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource("AnimationNodeStateMachine_8gm7i")

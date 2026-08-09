@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3]
+[gd_scene load_steps=7 format=3]
 
 [ext_resource type="Script" uid="uid://lj84j34awt1q" path="res://scripts/movement/top_down_controller.gd" id="1_ctrl"]
-[ext_resource type="Texture2D" uid="uid://bvtsxwnb2ou8v" path="res://sprites/shapes/circle.png" id="2_circ"]
+[ext_resource type="Texture2D" path="res://sprites/characters/water_npcs/WaterNPCs_Animations.png" id="2_char"]
+[ext_resource type="Script" path="res://scripts/movement/character_sheet_animator.gd" id="4_anim"]
 [ext_resource type="Script" uid="uid://deq787ikm4ird" path="res://scripts/interaction/interactor.gd" id="3_intr"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_body"]
@@ -20,9 +21,14 @@ speed = 350.0
 shape = SubResource("CircleShape2D_body")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-modulate = Color(0.329412, 0.2, 0.266667, 1)
-scale = Vector2(0.4, 0.4)
-texture = ExtResource("2_circ")
+scale = Vector2(4, 4)
+texture = ExtResource("2_char")
+hframes = 12
+vframes = 16
+frame_coords = Vector2i(4, 4)
+script = ExtResource("4_anim")
+block_col = 1
+block_row = 1
 
 [node name="Interactor" type="Area2D" parent="."]
 collision_layer = 1

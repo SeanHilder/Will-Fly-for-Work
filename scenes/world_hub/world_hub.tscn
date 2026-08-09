@@ -1,12 +1,24 @@
-[gd_scene load_steps=18 format=3]
+[gd_scene load_steps=30 format=3]
 
 [ext_resource type="Texture2D" uid="uid://bi7fkg3oosb7" path="res://sprites/shapes/square.png" id="1_sq"]
 [ext_resource type="PackedScene" path="res://scenes/world_hub/hub_player.tscn" id="2_plyr"]
 [ext_resource type="Texture2D" uid="uid://bvtsxwnb2ou8v" path="res://sprites/shapes/circle.png" id="3_circ"]
-[ext_resource type="Script" uid="uid://bfinajdpwk0ii" path="res://scripts/interaction/dialog/dialog_interactable.gd" id="4_dlog"]
+[ext_resource type="Script" path="res://scripts/interaction/dialog/story_dialog_interactable.gd" id="4_dlog"]
 [ext_resource type="PackedScene" uid="uid://ds4pyjrrj8npy" path="res://scenes/common/ui/dialog_box.tscn" id="5_dbox"]
 [ext_resource type="PackedScene" uid="uid://djujqcbughbl" path="res://scenes/common/ui/pause_menu.tscn" id="6_pause"]
 [ext_resource type="PackedScene" path="res://scenes/common/interaction_prompt.tscn" id="7_prmpt"]
+[ext_resource type="Texture2D" path="res://sprites/characters/hover_bot.png" id="9_bot"]
+[ext_resource type="Script" path="res://scripts/world/hover_bob.gd" id="10_bob"]
+[ext_resource type="Texture2D" path="res://sprites/buildings/depot.png" id="11_bdepot"]
+[ext_resource type="Texture2D" path="res://sprites/buildings/tower.png" id="12_btower"]
+[ext_resource type="Texture2D" path="res://sprites/buildings/spaceport.png" id="13_bport"]
+[ext_resource type="Texture2D" path="res://sprites/buildings/diner.png" id="14_bdiner"]
+[ext_resource type="Texture2D" path="res://sprites/buildings/hr_office.png" id="15_bhr"]
+[ext_resource type="Texture2D" path="res://sprites/buildings/apartments.png" id="16_bapt"]
+[ext_resource type="Texture2D" path="res://sprites/buildings/warehouse.png" id="17_bware"]
+[ext_resource type="Texture2D" path="res://sprites/buildings/clinic.png" id="18_bclinic"]
+[ext_resource type="Texture2D" path="res://sprites/buildings/rocket.png" id="19_brocket"]
+[ext_resource type="Script" path="res://scripts/interaction/dialog/scene_travel_interactable.gd" id="20_travel"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_npc_body"]
 radius = 20.0
@@ -38,10 +50,16 @@ size = Vector2(250, 250)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b300x150"]
 size = Vector2(300, 150)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rocket"]
+size = Vector2(88, 200)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_launch_range"]
+radius = 130.0
+
 [node name="WorldHub" type="Node2D"]
 
 [node name="Ground" type="Sprite2D" parent="."]
-modulate = Color(0.788235, 0.8, 0.631373, 1)
+modulate = Color(0.545098, 0.560784, 0.588235, 1)
 z_index = -10
 scale = Vector2(20.6, 14.6)
 texture = ExtResource("1_sq")
@@ -50,12 +68,12 @@ texture = ExtResource("1_sq")
 z_index = -9
 
 [node name="RoadH" type="Sprite2D" parent="Roads"]
-modulate = Color(0.556863, 0.627451, 0.568627, 1)
+modulate = Color(0.360784, 0.372549, 0.411765, 1)
 scale = Vector2(20.6, 1.4)
 texture = ExtResource("1_sq")
 
 [node name="RoadV" type="Sprite2D" parent="Roads"]
-modulate = Color(0.556863, 0.627451, 0.568627, 1)
+modulate = Color(0.360784, 0.372549, 0.411765, 1)
 scale = Vector2(1.4, 14.6)
 texture = ExtResource("1_sq")
 
@@ -67,9 +85,8 @@ collision_layer = 8
 collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="Buildings/Depot"]
-modulate = Color(0.792157, 0.627451, 0.352941, 1)
-scale = Vector2(3, 2)
-texture = ExtResource("1_sq")
+scale = Vector2(4, 4)
+texture = ExtResource("11_bdepot")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Buildings/Depot"]
 shape = SubResource("RectangleShape2D_b300x200")
@@ -80,9 +97,8 @@ collision_layer = 8
 collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="Buildings/Tower"]
-modulate = Color(0.682353, 0.415686, 0.278431, 1)
-scale = Vector2(2, 3)
-texture = ExtResource("1_sq")
+scale = Vector2(4, 4)
+texture = ExtResource("12_btower")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Buildings/Tower"]
 shape = SubResource("RectangleShape2D_b200x300")
@@ -93,12 +109,38 @@ collision_layer = 8
 collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="Buildings/Spaceport"]
-modulate = Color(0.545098, 0.25098, 0.286275, 1)
-scale = Vector2(3.5, 1.8)
-texture = ExtResource("1_sq")
+scale = Vector2(4, 4)
+texture = ExtResource("13_bport")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Buildings/Spaceport"]
 shape = SubResource("RectangleShape2D_b350x180")
+
+[node name="Rocket" type="StaticBody2D" parent="Buildings"]
+position = Vector2(830, -420)
+collision_layer = 8
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Buildings/Rocket"]
+scale = Vector2(4, 4)
+texture = ExtResource("19_brocket")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Buildings/Rocket"]
+position = Vector2(0, 6)
+shape = SubResource("RectangleShape2D_rocket")
+
+[node name="LaunchInteractable" type="Area2D" parent="Buildings/Rocket" node_paths=PackedStringArray("dialog_box")]
+collision_layer = 4
+collision_mask = 1
+script = ExtResource("20_travel")
+target_scene_path = "res://scenes/world_hub/alien_world.tscn"
+dialog_lines = Array[String](["JOBB-E|Destination: Glorbon-5. First stop on the 4,242 light-year commute.", "YOU|Please tell me this thing has seatbelts.", "JOBB-E|Seatbelts were optimized out in Q3. Launching."])
+dialog_box = NodePath("../../../ui/dialog_box")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Buildings/Rocket/LaunchInteractable"]
+shape = SubResource("CircleShape2D_launch_range")
+
+[node name="InteractionPrompt" parent="Buildings/Rocket/LaunchInteractable" instance=ExtResource("7_prmpt")]
+position = Vector2(0, -140)
 
 [node name="Diner" type="StaticBody2D" parent="Buildings"]
 position = Vector2(250, -250)
@@ -106,9 +148,8 @@ collision_layer = 8
 collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="Buildings/Diner"]
-modulate = Color(0.388235, 0.470588, 0.490196, 1)
-scale = Vector2(2, 2)
-texture = ExtResource("1_sq")
+scale = Vector2(4, 4)
+texture = ExtResource("14_bdiner")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Buildings/Diner"]
 shape = SubResource("RectangleShape2D_b200x200")
@@ -119,9 +160,8 @@ collision_layer = 8
 collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="Buildings/HRBotOffice"]
-modulate = Color(0.545098, 0.25098, 0.286275, 1)
-scale = Vector2(2.5, 2.5)
-texture = ExtResource("1_sq")
+scale = Vector2(4, 4)
+texture = ExtResource("15_bhr")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Buildings/HRBotOffice"]
 shape = SubResource("RectangleShape2D_b250x250")
@@ -132,9 +172,8 @@ collision_layer = 8
 collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="Buildings/Apartments"]
-modulate = Color(0.792157, 0.627451, 0.352941, 1)
-scale = Vector2(2, 2)
-texture = ExtResource("1_sq")
+scale = Vector2(4, 4)
+texture = ExtResource("16_bapt")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Buildings/Apartments"]
 shape = SubResource("RectangleShape2D_b200x200")
@@ -145,9 +184,8 @@ collision_layer = 8
 collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="Buildings/Warehouse"]
-modulate = Color(0.682353, 0.415686, 0.278431, 1)
-scale = Vector2(3, 1.5)
-texture = ExtResource("1_sq")
+scale = Vector2(4, 4)
+texture = ExtResource("17_bware")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Buildings/Warehouse"]
 shape = SubResource("RectangleShape2D_b300x150")
@@ -158,9 +196,8 @@ collision_layer = 8
 collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="Buildings/Clinic"]
-modulate = Color(0.388235, 0.470588, 0.490196, 1)
-scale = Vector2(2, 3)
-texture = ExtResource("1_sq")
+scale = Vector2(4, 4)
+texture = ExtResource("18_bclinic")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Buildings/Clinic"]
 shape = SubResource("RectangleShape2D_b200x300")
@@ -220,14 +257,21 @@ texture = ExtResource("1_sq")
 shape = SubResource("RectangleShape2D_wall_v")
 
 [node name="LaidOffWorker" type="StaticBody2D" parent="."]
-position = Vector2(550, -230)
+position = Vector2(-380, 460)
 collision_layer = 8
 collision_mask = 0
 
-[node name="Sprite2D" type="Sprite2D" parent="LaidOffWorker"]
-modulate = Color(0.792157, 0.627451, 0.352941, 1)
-scale = Vector2(0.4, 0.4)
+[node name="Shadow" type="Sprite2D" parent="LaidOffWorker"]
+modulate = Color(0, 0, 0, 0.35)
+position = Vector2(0, 38)
+scale = Vector2(0.28, 0.1)
 texture = ExtResource("3_circ")
+
+[node name="Body" type="Sprite2D" parent="LaidOffWorker"]
+position = Vector2(0, -8)
+scale = Vector2(4, 4)
+texture = ExtResource("9_bot")
+script = ExtResource("10_bob")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LaidOffWorker"]
 shape = SubResource("CircleShape2D_npc_body")
@@ -237,13 +281,17 @@ collision_layer = 4
 collision_mask = 1
 script = ExtResource("4_dlog")
 dialog_box = NodePath("../../ui/dialog_box")
-dialog_lines = Array[String](["No more jobs."])
+dialog_lines = Array[String](["JOBB-E|Welcome to WorkedIn curbside support! Scanning employment history... complete. Oh. Oh dear.", "YOU|Rude.", "JOBB-E|Listed skills: 'hands', 'improvisation', 'showing up anyway'. None of these compile.", "YOU|I already GOT a job. Biological chaos technician. On Ataraxia.", "JOBB-E|Correct! Minor detail: Ataraxia is 4,242 light-years away. Relocation assistance was optimized out in Q3.", "YOU|...So how do I get there?", "JOBB-E|Standard commute: fly to the next planet, do whatever job is too messy for robots, get paid in the parts your ship is missing, repeat until Ataraxia.", "YOU|That's not a commute, that's a career.", "JOBB-E|Glad we agree. The spaceport is northeast. Chop chop -- your joints are organic and the warranty is void."])
+speaker_colors = {
+"JOBB-E": Color(0.49, 0.91, 1, 1),
+"YOU": Color(0.95, 0.7, 0.24, 1)
+}
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LaidOffWorker/DialogInteractable"]
 shape = SubResource("CircleShape2D_npc_range")
 
 [node name="InteractionPrompt" parent="LaidOffWorker/DialogInteractable" instance=ExtResource("7_prmpt")]
-position = Vector2(0, -52)
+position = Vector2(0, -76)
 
 [node name="ui" type="CanvasLayer" parent="."]
 

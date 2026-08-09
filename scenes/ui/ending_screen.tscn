@@ -1,0 +1,47 @@
+[gd_scene load_steps=7 format=3]
+
+[ext_resource type="Theme" uid="uid://byds11vsd6ber" path="res://themes/pixelart/pixelart.tres" id="1_thm"]
+[ext_resource type="Script" path="res://scripts/ui/ending_screen.gd" id="2_scpt"]
+[ext_resource type="Shader" uid="uid://dc0i7n2fv2ffs" path="res://shaders/starfield.gdshader" id="3_star"]
+[ext_resource type="Texture2D" path="res://sprites/characters/hover_bot.png" id="4_bot"]
+[ext_resource type="Script" path="res://scripts/world/hover_bob.gd" id="5_bob"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_endstars"]
+shader = ExtResource("3_star")
+shader_parameter/top_color = Color(0.01, 0.01, 0.06, 1)
+shader_parameter/bottom_color = Color(0.09, 0.03, 0.18, 1)
+shader_parameter/aspect = 1.777
+shader_parameter/star_density = 40.0
+shader_parameter/star_size = 0.3
+shader_parameter/star_falloff = 6.0
+shader_parameter/twinkle_speed = 1.5
+shader_parameter/drift_speed = 0.005
+
+[node name="EndingScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("1_thm")
+script = ExtResource("2_scpt")
+
+[node name="StarField" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+material = SubResource("ShaderMaterial_endstars")
+
+[node name="Bot" type="Sprite2D" parent="."]
+position = Vector2(576, 160)
+scale = Vector2(6, 6)
+texture = ExtResource("4_bot")
+script = ExtResource("5_bob")
+amplitude = 8.0
+speed = 2.0

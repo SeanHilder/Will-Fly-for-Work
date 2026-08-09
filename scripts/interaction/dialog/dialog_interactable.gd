@@ -3,7 +3,7 @@ class_name DialogInteractable extends Interactable
 @export var dialog_box : DialogBox
 @export var dialog_lines : Array[String]
 
-var _current_line_index = -1
+var _current_line_index: int = -1
 
 func _on_area_exited(area : Area2D):
 	super._on_area_exited(area)
