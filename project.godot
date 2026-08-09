@@ -30,10 +30,10 @@ AudioManager="*res://scenes/preloads/audio_manager.tscn"
 SceneTransitionManager="*res://scenes/preloads/scene_transition_manager.tscn"
 SaveManager="*res://scenes/preloads/save_manager.tscn"
 CameraShakeManager="*res://scenes/preloads/camera_shake_manager.tscn"
+GameManager="*res://scenes/preloads/game_manager.tscn"
 GameState="*res://scripts/globals/game_state.gd"
 MinigameHost="*res://scripts/globals/minigame_host.gd"
 _mcp_game_helper="*res://addons/godot_ai/runtime/game_helper.gd"
-GameManager="*res://scenes/preloads/game_manager.tscn"
 
 [display]
 
@@ -111,5 +111,6 @@ shoot={
 
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
 environment/volumetric_fog/use_filter=0
 environment/defaults/default_clear_color=Color(0.788235, 0.8, 0.631373, 1)

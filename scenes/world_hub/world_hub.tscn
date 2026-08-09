@@ -1,18 +1,25 @@
-[gd_scene load_steps=18 format=3]
+[gd_scene format=3 uid="uid://btnpldqn1olst"]
 
-[ext_resource type="Texture2D" uid="uid://bi7fkg3oosb7" path="res://sprites/shapes/square.png" id="1_sq"]
+[ext_resource type="Texture2D" uid="uid://bi7fkmg3oosb7" path="res://sprites/shapes/square.png" id="1_sq"]
 [ext_resource type="PackedScene" path="res://scenes/world_hub/hub_player.tscn" id="2_plyr"]
 [ext_resource type="Texture2D" uid="uid://bvtsxwnb2ou8v" path="res://sprites/shapes/circle.png" id="3_circ"]
 [ext_resource type="Script" uid="uid://bfinajdpwk0ii" path="res://scripts/interaction/dialog/dialog_interactable.gd" id="4_dlog"]
 [ext_resource type="PackedScene" uid="uid://ds4pyjrrj8npy" path="res://scenes/common/ui/dialog_box.tscn" id="5_dbox"]
 [ext_resource type="PackedScene" uid="uid://djujqcbughbl" path="res://scenes/common/ui/pause_menu.tscn" id="6_pause"]
 [ext_resource type="PackedScene" path="res://scenes/common/interaction_prompt.tscn" id="7_prmpt"]
+[ext_resource type="Texture2D" uid="uid://tyedp0xbqp8g" path="res://sprites/tilesets/kenney_modern_city/tilemap_packed.png" id="8_city"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_npc_body"]
-radius = 20.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b240x320"]
+size = Vector2(240, 320)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_npc_range"]
-radius = 70.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b256x256"]
+size = Vector2(256, 256)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b192x192"]
+size = Vector2(192, 192)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b240x160"]
+size = Vector2(240, 160)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_h"]
 size = Vector2(2180, 60)
@@ -20,244 +27,241 @@ size = Vector2(2180, 60)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_v"]
 size = Vector2(60, 1460)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_b300x200"]
-size = Vector2(300, 200)
+[sub_resource type="CircleShape2D" id="CircleShape2D_npc_body"]
+radius = 20.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_b200x300"]
-size = Vector2(200, 300)
+[sub_resource type="CircleShape2D" id="CircleShape2D_npc_range"]
+radius = 70.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_b350x180"]
-size = Vector2(350, 180)
+[node name="WorldHub" type="Node2D" unique_id=898470445]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_b200x200"]
-size = Vector2(200, 200)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_b250x250"]
-size = Vector2(250, 250)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_b300x150"]
-size = Vector2(300, 150)
-
-[node name="WorldHub" type="Node2D"]
-
-[node name="Ground" type="Sprite2D" parent="."]
+[node name="Ground" type="Sprite2D" parent="." unique_id=1199250740]
 modulate = Color(0.788235, 0.8, 0.631373, 1)
 z_index = -10
 scale = Vector2(20.6, 14.6)
 texture = ExtResource("1_sq")
 
-[node name="Roads" type="Node2D" parent="."]
+[node name="Roads" type="Node2D" parent="." unique_id=120242150]
 z_index = -9
 
-[node name="RoadH" type="Sprite2D" parent="Roads"]
+[node name="RoadH" type="Sprite2D" parent="Roads" unique_id=432211173]
 modulate = Color(0.556863, 0.627451, 0.568627, 1)
 scale = Vector2(20.6, 1.4)
 texture = ExtResource("1_sq")
 
-[node name="RoadV" type="Sprite2D" parent="Roads"]
+[node name="RoadV" type="Sprite2D" parent="Roads" unique_id=974558679]
 modulate = Color(0.556863, 0.627451, 0.568627, 1)
 scale = Vector2(1.4, 14.6)
 texture = ExtResource("1_sq")
 
-[node name="Buildings" type="Node2D" parent="."]
+[node name="Buildings" type="Node2D" parent="." unique_id=2129363213]
 
-[node name="Depot" type="StaticBody2D" parent="Buildings"]
-position = Vector2(-600, -450)
+[node name="Depot" type="StaticBody2D" parent="Buildings" unique_id=1329674433]
+position = Vector2(-717, -259)
 collision_layer = 8
 collision_mask = 0
 
-[node name="Sprite2D" type="Sprite2D" parent="Buildings/Depot"]
-modulate = Color(0.792157, 0.627451, 0.352941, 1)
-scale = Vector2(3, 2)
-texture = ExtResource("1_sq")
+[node name="Sprite2D" type="Sprite2D" parent="Buildings/Depot" unique_id=1506861725]
+scale = Vector2(4, 4)
+texture = ExtResource("8_city")
+region_enabled = true
+region_rect = Rect2(635, 87.25, 6.5, 7.5)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Buildings/Depot"]
-shape = SubResource("RectangleShape2D_b300x200")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Buildings/Depot" unique_id=797345548]
+shape = SubResource("RectangleShape2D_b240x320")
 
-[node name="Tower" type="StaticBody2D" parent="Buildings"]
+[node name="Tower" type="StaticBody2D" parent="Buildings" unique_id=1084858024]
 position = Vector2(-250, -350)
 collision_layer = 8
 collision_mask = 0
 
-[node name="Sprite2D" type="Sprite2D" parent="Buildings/Tower"]
-modulate = Color(0.682353, 0.415686, 0.278431, 1)
-scale = Vector2(2, 3)
-texture = ExtResource("1_sq")
+[node name="Sprite2D" type="Sprite2D" parent="Buildings/Tower" unique_id=776297825]
+scale = Vector2(4, 4)
+texture = ExtResource("8_city")
+region_enabled = true
+region_rect = Rect2(64, 80, 60, 80)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Buildings/Tower"]
-shape = SubResource("RectangleShape2D_b200x300")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Buildings/Tower" unique_id=1840370094]
+shape = SubResource("RectangleShape2D_b240x320")
 
-[node name="Spaceport" type="StaticBody2D" parent="Buildings"]
+[node name="Spaceport" type="StaticBody2D" parent="Buildings" unique_id=1026833066]
 position = Vector2(550, -400)
 collision_layer = 8
 collision_mask = 0
 
-[node name="Sprite2D" type="Sprite2D" parent="Buildings/Spaceport"]
-modulate = Color(0.545098, 0.25098, 0.286275, 1)
-scale = Vector2(3.5, 1.8)
-texture = ExtResource("1_sq")
+[node name="Sprite2D" type="Sprite2D" parent="Buildings/Spaceport" unique_id=2054611465]
+scale = Vector2(4, 4)
+texture = ExtResource("8_city")
+region_enabled = true
+region_rect = Rect2(192, 64, 64, 64)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Buildings/Spaceport"]
-shape = SubResource("RectangleShape2D_b350x180")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Buildings/Spaceport" unique_id=169669771]
+shape = SubResource("RectangleShape2D_b256x256")
 
-[node name="Diner" type="StaticBody2D" parent="Buildings"]
+[node name="Diner" type="StaticBody2D" parent="Buildings" unique_id=2031697518]
 position = Vector2(250, -250)
 collision_layer = 8
 collision_mask = 0
 
-[node name="Sprite2D" type="Sprite2D" parent="Buildings/Diner"]
-modulate = Color(0.388235, 0.470588, 0.490196, 1)
-scale = Vector2(2, 2)
-texture = ExtResource("1_sq")
+[node name="Sprite2D" type="Sprite2D" parent="Buildings/Diner" unique_id=1947718982]
+scale = Vector2(4, 4)
+texture = ExtResource("8_city")
+region_enabled = true
+region_rect = Rect2(368, 144, 48, 48)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Buildings/Diner"]
-shape = SubResource("RectangleShape2D_b200x200")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Buildings/Diner" unique_id=1570484804]
+shape = SubResource("RectangleShape2D_b192x192")
 
-[node name="HRBotOffice" type="StaticBody2D" parent="Buildings"]
+[node name="HRBotOffice" type="StaticBody2D" parent="Buildings" unique_id=535099668]
 position = Vector2(-550, 400)
 collision_layer = 8
 collision_mask = 0
 
-[node name="Sprite2D" type="Sprite2D" parent="Buildings/HRBotOffice"]
-modulate = Color(0.545098, 0.25098, 0.286275, 1)
-scale = Vector2(2.5, 2.5)
-texture = ExtResource("1_sq")
+[node name="Sprite2D" type="Sprite2D" parent="Buildings/HRBotOffice" unique_id=264354103]
+scale = Vector2(4, 4)
+texture = ExtResource("8_city")
+region_enabled = true
+region_rect = Rect2(256, 96, 64, 64)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Buildings/HRBotOffice"]
-shape = SubResource("RectangleShape2D_b250x250")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Buildings/HRBotOffice" unique_id=743997798]
+shape = SubResource("RectangleShape2D_b256x256")
 
-[node name="Apartments" type="StaticBody2D" parent="Buildings"]
+[node name="Apartments" type="StaticBody2D" parent="Buildings" unique_id=1790856786]
 position = Vector2(-200, 300)
 collision_layer = 8
 collision_mask = 0
 
-[node name="Sprite2D" type="Sprite2D" parent="Buildings/Apartments"]
-modulate = Color(0.792157, 0.627451, 0.352941, 1)
-scale = Vector2(2, 2)
-texture = ExtResource("1_sq")
+[node name="Sprite2D" type="Sprite2D" parent="Buildings/Apartments" unique_id=583671622]
+scale = Vector2(4, 4)
+texture = ExtResource("8_city")
+region_enabled = true
+region_rect = Rect2(0, 80, 60, 80)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Buildings/Apartments"]
-shape = SubResource("RectangleShape2D_b200x200")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Buildings/Apartments" unique_id=1412666369]
+shape = SubResource("RectangleShape2D_b240x320")
 
-[node name="Warehouse" type="StaticBody2D" parent="Buildings"]
+[node name="Warehouse" type="StaticBody2D" parent="Buildings" unique_id=283508345]
 position = Vector2(500, 350)
 collision_layer = 8
 collision_mask = 0
 
-[node name="Sprite2D" type="Sprite2D" parent="Buildings/Warehouse"]
-modulate = Color(0.682353, 0.415686, 0.278431, 1)
-scale = Vector2(3, 1.5)
-texture = ExtResource("1_sq")
+[node name="Sprite2D" type="Sprite2D" parent="Buildings/Warehouse" unique_id=183492988]
+scale = Vector2(4, 4)
+texture = ExtResource("8_city")
+region_enabled = true
+region_rect = Rect2(64, 80, 60, 40)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Buildings/Warehouse"]
-shape = SubResource("RectangleShape2D_b300x150")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Buildings/Warehouse" unique_id=2074301067]
+shape = SubResource("RectangleShape2D_b240x160")
 
-[node name="Clinic" type="StaticBody2D" parent="Buildings"]
+[node name="Clinic" type="StaticBody2D" parent="Buildings" unique_id=677711061]
 position = Vector2(250, 500)
 collision_layer = 8
 collision_mask = 0
 
-[node name="Sprite2D" type="Sprite2D" parent="Buildings/Clinic"]
-modulate = Color(0.388235, 0.470588, 0.490196, 1)
-scale = Vector2(2, 3)
-texture = ExtResource("1_sq")
+[node name="Sprite2D" type="Sprite2D" parent="Buildings/Clinic" unique_id=1010134471]
+scale = Vector2(4, 4)
+texture = ExtResource("8_city")
+region_enabled = true
+region_rect = Rect2(128, 80, 60, 80)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Buildings/Clinic"]
-shape = SubResource("RectangleShape2D_b200x300")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Buildings/Clinic" unique_id=1434958686]
+shape = SubResource("RectangleShape2D_b240x320")
 
-[node name="Walls" type="Node2D" parent="."]
+[node name="Walls" type="Node2D" parent="." unique_id=1731193335]
 
-[node name="WallTop" type="StaticBody2D" parent="Walls"]
+[node name="WallTop" type="StaticBody2D" parent="Walls" unique_id=796882070]
 position = Vector2(0, -760)
 collision_layer = 8
 collision_mask = 0
 
-[node name="Sprite2D" type="Sprite2D" parent="Walls/WallTop"]
+[node name="Sprite2D" type="Sprite2D" parent="Walls/WallTop" unique_id=819601985]
 modulate = Color(0.317647, 0.321569, 0.384314, 1)
 scale = Vector2(21.8, 0.6)
 texture = ExtResource("1_sq")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/WallTop"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/WallTop" unique_id=671124248]
 shape = SubResource("RectangleShape2D_wall_h")
 
-[node name="WallBottom" type="StaticBody2D" parent="Walls"]
+[node name="WallBottom" type="StaticBody2D" parent="Walls" unique_id=60941343]
 position = Vector2(0, 760)
 collision_layer = 8
 collision_mask = 0
 
-[node name="Sprite2D" type="Sprite2D" parent="Walls/WallBottom"]
+[node name="Sprite2D" type="Sprite2D" parent="Walls/WallBottom" unique_id=1878503312]
 modulate = Color(0.317647, 0.321569, 0.384314, 1)
 scale = Vector2(21.8, 0.6)
 texture = ExtResource("1_sq")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/WallBottom"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/WallBottom" unique_id=1529246619]
 shape = SubResource("RectangleShape2D_wall_h")
 
-[node name="WallLeft" type="StaticBody2D" parent="Walls"]
+[node name="WallLeft" type="StaticBody2D" parent="Walls" unique_id=679412163]
 position = Vector2(-1060, 0)
 collision_layer = 8
 collision_mask = 0
 
-[node name="Sprite2D" type="Sprite2D" parent="Walls/WallLeft"]
+[node name="Sprite2D" type="Sprite2D" parent="Walls/WallLeft" unique_id=2103876501]
 modulate = Color(0.317647, 0.321569, 0.384314, 1)
 scale = Vector2(0.6, 14.6)
 texture = ExtResource("1_sq")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/WallLeft"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/WallLeft" unique_id=127074]
 shape = SubResource("RectangleShape2D_wall_v")
 
-[node name="WallRight" type="StaticBody2D" parent="Walls"]
+[node name="WallRight" type="StaticBody2D" parent="Walls" unique_id=1191588003]
 position = Vector2(1060, 0)
 collision_layer = 8
 collision_mask = 0
 
-[node name="Sprite2D" type="Sprite2D" parent="Walls/WallRight"]
+[node name="Sprite2D" type="Sprite2D" parent="Walls/WallRight" unique_id=1470834438]
 modulate = Color(0.317647, 0.321569, 0.384314, 1)
 scale = Vector2(0.6, 14.6)
 texture = ExtResource("1_sq")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/WallRight"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/WallRight" unique_id=1197713778]
 shape = SubResource("RectangleShape2D_wall_v")
 
-[node name="LaidOffWorker" type="StaticBody2D" parent="."]
+[node name="LaidOffWorker" type="StaticBody2D" parent="." unique_id=1842455531]
 position = Vector2(550, -230)
 collision_layer = 8
 collision_mask = 0
 
-[node name="Sprite2D" type="Sprite2D" parent="LaidOffWorker"]
+[node name="Sprite2D" type="Sprite2D" parent="LaidOffWorker" unique_id=189725862]
 modulate = Color(0.792157, 0.627451, 0.352941, 1)
 scale = Vector2(0.4, 0.4)
 texture = ExtResource("3_circ")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="LaidOffWorker"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LaidOffWorker" unique_id=1370326712]
 shape = SubResource("CircleShape2D_npc_body")
 
-[node name="DialogInteractable" type="Area2D" parent="LaidOffWorker" node_paths=PackedStringArray("dialog_box")]
+[node name="DialogInteractable" type="Area2D" parent="LaidOffWorker" unique_id=1349446566 node_paths=PackedStringArray("dialog_box")]
 collision_layer = 4
-collision_mask = 1
 script = ExtResource("4_dlog")
 dialog_box = NodePath("../../ui/dialog_box")
 dialog_lines = Array[String](["No more jobs."])
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="LaidOffWorker/DialogInteractable"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LaidOffWorker/DialogInteractable" unique_id=2054051603]
 shape = SubResource("CircleShape2D_npc_range")
 
-[node name="InteractionPrompt" parent="LaidOffWorker/DialogInteractable" instance=ExtResource("7_prmpt")]
+[node name="InteractionPrompt" parent="LaidOffWorker/DialogInteractable" unique_id=1459381624 instance=ExtResource("7_prmpt")]
 position = Vector2(0, -52)
 
-[node name="ui" type="CanvasLayer" parent="."]
+[node name="ui" type="CanvasLayer" parent="." unique_id=656552334]
 
-[node name="dialog_box" parent="ui" instance=ExtResource("5_dbox")]
+[node name="dialog_box" parent="ui" unique_id=1261934493 instance=ExtResource("5_dbox")]
 
-[node name="pause_menu" parent="ui" instance=ExtResource("6_pause")]
+[node name="pause_menu" parent="ui" unique_id=1949781064 instance=ExtResource("6_pause")]
 
-[node name="HubPlayer" parent="." instance=ExtResource("2_plyr")]
+[node name="HubPlayer" parent="." unique_id=450706503 instance=ExtResource("2_plyr")]
 position = Vector2(0, 150)
 
-[node name="Camera2D" type="Camera2D" parent="HubPlayer"]
+[node name="Camera2D" type="Camera2D" parent="HubPlayer" unique_id=2137294058]
 limit_left = -1090
 limit_top = -790
 limit_right = 1090
 limit_bottom = 790
 position_smoothing_enabled = true
 position_smoothing_speed = 8.0
+
+[node name="GroundMap" type="TileMapLayer" parent="." unique_id=429683593]
