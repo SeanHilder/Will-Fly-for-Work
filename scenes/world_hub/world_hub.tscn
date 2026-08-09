@@ -133,6 +133,8 @@ collision_layer = 4
 collision_mask = 1
 script = ExtResource("20_travel")
 target_scene_path = "res://scenes/world_hub/alien_world.tscn"
+from_planet = "earth"
+to_planet = "glorbon"
 dialog_lines = Array[String](["JOBB-E|Destination: Glorbon-5. First stop on the 4,242 light-year commute.", "YOU|Please tell me this thing has seatbelts.", "JOBB-E|Seatbelts were optimized out in Q3. Launching."])
 dialog_box = NodePath("../../../ui/dialog_box")
 

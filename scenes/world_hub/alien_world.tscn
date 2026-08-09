@@ -143,6 +143,7 @@ menu = NodePath("../../DestinationMenu")
 labels = Array[String](["EARTH — the way you came", "CINDERON-3 — next stop"])
 scene_paths = Array[String](["res://scenes/world_hub/world_hub.tscn", "res://scenes/world_hub/cinderon.tscn"])
 required_parts = Array[String](["", "heat_shield"])
+planet_ids = Array[String](["earth", "cinderon"])
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Rocket/TravelInteractable"]
 shape = SubResource("CircleShape2D_launch_range")
@@ -152,6 +153,7 @@ position = Vector2(0, -140)
 
 [node name="DestinationMenu" type="CanvasLayer" parent="."]
 script = ExtResource("16_dmenu")
+from_planet = "glorbon"
 
 [node name="Alien" type="StaticBody2D" parent="."]
 position = Vector2(120, -40)

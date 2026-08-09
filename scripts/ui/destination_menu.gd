@@ -64,7 +64,11 @@ func is_open() -> bool:
 	return _is_open
 
 
-## options: Array of { label: String, path: String, locked_reason: String }.
+## Planet id this menu is departing FROM, used by the travel animation.
+@export var from_planet := ""
+
+
+## options: Array of { label, path, locked_reason, planet_id }.
 ## Empty locked_reason means travel is allowed.
 func open(options: Array) -> void:
 	if _is_open:
@@ -84,7 +88,7 @@ func open(options: Array) -> void:
 			b.text = "%s  [%s]" % [opt.label, opt.locked_reason]
 		else:
 			b.text = opt.label
-			b.pressed.connect(_travel.bind(opt.path))
+			b.pressed.connect(_travel.bind(opt.path, opt.get("planet_id", "")))
 		_buttons_box.add_child(b)
 
 
@@ -93,8 +97,12 @@ func close() -> void:
 	visible = false
 
 
-func _travel(path: String) -> void:
+func _travel(path: String, planet_id: String) -> void:
 	close()
+	# Known planets get the fly-by animation; anything else goes straight there.
+	if planet_id != "" and from_planet != "":
+		TravelScreen.set_trip(from_planet, planet_id, path)
+		path = TravelScreen.SCENE_PATH
 	SceneTransitionManager.change_scene_with_transition(
 		load(path),
 		load(GameManager.TRANSITION_PATH)

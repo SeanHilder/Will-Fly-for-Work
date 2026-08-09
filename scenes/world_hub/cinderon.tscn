@@ -212,6 +212,7 @@ shape = SubResource("RectangleShape2D_wall_v")
 
 [node name="DestinationMenu" type="CanvasLayer" parent="."]
 script = ExtResource("16_dmenu")
+from_planet = "cinderon"
 
 [node name="Rocket" type="StaticBody2D" parent="."]
 position = Vector2(-440, -140)
@@ -234,6 +235,7 @@ menu = NodePath("../../DestinationMenu")
 labels = Array[String](["GLORBON-5 — back the way you came", "ATARAXIA — the job"])
 scene_paths = Array[String](["res://scenes/world_hub/alien_world.tscn", "res://scenes/world_hub/ataraxia.tscn"])
 required_parts = Array[String](["", "asteroid_blaster"])
+planet_ids = Array[String](["glorbon", "ataraxia"])
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Rocket/TravelInteractable"]
 shape = SubResource("CircleShape2D_launch_range")

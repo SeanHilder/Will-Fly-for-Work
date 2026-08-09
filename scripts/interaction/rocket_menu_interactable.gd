@@ -11,6 +11,9 @@ class_name RocketMenuInteractable extends Interactable
 @export var labels: Array[String] = []
 @export var scene_paths: Array[String] = []
 @export var required_parts: Array[String] = []
+## TravelScreen planet ids (earth / glorbon / cinderon / ataraxia), same order
+## as labels. Blank entries skip the travel animation for that destination.
+@export var planet_ids: Array[String] = []
 
 
 func _on_interact(interactor: Interactor) -> void:
@@ -28,5 +31,6 @@ func _on_interact(interactor: Interactor) -> void:
 			"label": labels[i],
 			"path": scene_paths[i],
 			"locked_reason": ("needs " + req.replace("_", " ")) if locked else "",
+			"planet_id": planet_ids[i] if i < planet_ids.size() else "",
 		})
 	menu.open(options)

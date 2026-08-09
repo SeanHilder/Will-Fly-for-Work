@@ -141,6 +141,8 @@ collision_layer = 4
 collision_mask = 1
 script = ExtResource("12_travel")
 target_scene_path = "res://scenes/world_hub/cinderon.tscn"
+from_planet = "ataraxia"
+to_planet = "cinderon"
 dialog_lines = Array[String](["JOBB-E|Return to Cinderon-3? You just achieved literal paradise.", "YOU|Paradise has a lunch rush.", "JOBB-E|Noted in your file under 'flight risk'. Boarding."])
 speaker_colors = {
 "JOBB-E": Color(0.49, 0.91, 1, 1),

@@ -1,0 +1,37 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Theme" uid="uid://byds11vsd6ber" path="res://themes/pixelart/pixelart.tres" id="1_thm"]
+[ext_resource type="Script" path="res://scripts/ui/travel_screen.gd" id="2_scpt"]
+[ext_resource type="Shader" uid="uid://dc0i7n2fv2ffs" path="res://shaders/starfield.gdshader" id="3_star"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_travelstars"]
+shader = ExtResource("3_star")
+shader_parameter/top_color = Color(0.01, 0.01, 0.06, 1)
+shader_parameter/bottom_color = Color(0.05, 0.02, 0.12, 1)
+shader_parameter/aspect = 1.777
+shader_parameter/star_density = 46.0
+shader_parameter/star_size = 0.3
+shader_parameter/star_falloff = 6.0
+shader_parameter/twinkle_speed = 1.5
+shader_parameter/drift_speed = 0.03
+
+[node name="TravelScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("1_thm")
+script = ExtResource("2_scpt")
+
+[node name="StarField" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+material = SubResource("ShaderMaterial_travelstars")
