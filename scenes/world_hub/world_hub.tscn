@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3]
+[gd_scene load_steps=18 format=3]
 
 [ext_resource type="Texture2D" uid="uid://bi7fkg3oosb7" path="res://sprites/shapes/square.png" id="1_sq"]
 [ext_resource type="PackedScene" path="res://scenes/world_hub/hub_player.tscn" id="2_plyr"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://bfinajdpwk0ii" path="res://scripts/interaction/dialog/dialog_interactable.gd" id="4_dlog"]
 [ext_resource type="PackedScene" uid="uid://ds4pyjrrj8npy" path="res://scenes/common/ui/dialog_box.tscn" id="5_dbox"]
 [ext_resource type="PackedScene" uid="uid://djujqcbughbl" path="res://scenes/common/ui/pause_menu.tscn" id="6_pause"]
+[ext_resource type="PackedScene" path="res://scenes/common/interaction_prompt.tscn" id="7_prmpt"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_npc_body"]
 radius = 20.0
@@ -240,6 +241,9 @@ dialog_lines = Array[String](["No more jobs."])
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LaidOffWorker/DialogInteractable"]
 shape = SubResource("CircleShape2D_npc_range")
+
+[node name="InteractionPrompt" parent="LaidOffWorker/DialogInteractable" instance=ExtResource("7_prmpt")]
+position = Vector2(0, -52)
 
 [node name="ui" type="CanvasLayer" parent="."]
 
