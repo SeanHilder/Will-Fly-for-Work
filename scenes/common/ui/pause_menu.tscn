@@ -10,7 +10,7 @@
 [sub_resource type="LabelSettings" id="LabelSettings_j07ig"]
 font_size = 141
 
-[node name="pause_menu" type="Control"]
+[node name="pause_menu" type="Control" node_paths=PackedStringArray("main_menu_button")]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -22,6 +22,7 @@ mouse_filter = 1
 theme = ExtResource("2_807cf")
 script = ExtResource("1_kcrr8")
 is_paused = ExtResource("3_ahtvt")
+main_menu_button = NodePath("AspectRatioContainer/MarginContainer/VBoxContainer/main_menu_button")
 
 [node name="mute_button" parent="." instance=ExtResource("3_gjyvc")]
 layout_mode = 0
@@ -56,3 +57,7 @@ layout_mode = 2
 
 [node name="load_button" parent="AspectRatioContainer/MarginContainer/VBoxContainer" instance=ExtResource("5_mxgd3")]
 layout_mode = 2
+
+[node name="main_menu_button" type="Button" parent="AspectRatioContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Main Menu"
